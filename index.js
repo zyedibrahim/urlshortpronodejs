@@ -22,8 +22,8 @@ app.post("/urlshort", async function (request, response) {
 
 const dataurl = {
     longurl:url,
-    // shorturl:`http://localhost:4000/${shortid.generate()}`,
-    shorturl:`${process.env.PORT}/${shortid.generate()}`,
+    shorturl:`http://localhost:${process.env.PORT}/${shortid.generate()}`,
+    // shorturl:`${process.env.PORT}/${shortid.generate()}`,
     Clickcount:0,
     date:new Date()
 }
@@ -44,14 +44,14 @@ app.get("/:shortcode", async function (request, response) {
     const getdata = await client
     .db("urls")
     .collection("urls&shorturl")
-    .findOne({shorturl: `${process.env.PORT}/${request.params.shortcode}` })
+    .findOne({shorturl: `http://localhost:${process.env.PORT}/${request.params.shortcode}` })
     
 
 
     const data = await client
     .db("urls")
     .collection("urls&shorturl")
-    .updateOne({shorturl: `${process.env.PORT}/${request.params.shortcode}` },{$set:{Clickcount: getdata.Clickcount +1 }} )
+    .updateOne({shorturl: `http://localhost:${process.env.PORT}/${request.params.shortcode}` },{$set:{Clickcount: getdata.Clickcount +1 }} )
 
 
 
